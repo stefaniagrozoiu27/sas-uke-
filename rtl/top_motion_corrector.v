@@ -1,35 +1,30 @@
 module top_motion_corrector #(
   parameter WP = 32
 )(
-  input  signed [WP-1:0] px, py, pz,
+  input  signed [WP-1:0] px, py, pz, // punct distorsionat
+  input  signed [WP-1:0] dt,          // rolling shutter time
 
-  input  signed [WP-1:0] dt,
+  // IMU
+  input  signed [WP-1:0] a_x,          // accelerație IMU pe X
+  input  signed [WP-1:0] v_prev,       // v(k)
 
-  input  signed [WP-1:0] v_x, v_y, v_z,
-
-  input  [31:0] invT_q0_30,
-
-  output signed [WP-1:0] cx, cy, cz
+  output signed [WP-1:0] v_next,       // v(k+1)
+  output signed [WP-1:0] cx, cy, cz     // punct corectat
 );
 
-  wire signed [WP+31:0] alpha_mult = dt * $signed(invT_q0_30);
-  wire signed [31:0]    alpha_raw  = alpha_mult >>> 16; // Q0.30
+  wire signed [WP-1:0] dx;
 
-  wire [31:0] alpha_clamped =
-      (alpha_raw <= 0) ? 32'd0 :
-      (alpha_raw >= 32'sh4000_0000) ? 32'h4000_0000 : // 1.0 in Q0.30
-      alpha_raw[31:0];
+  imu_integrator #(.WP(WP)) imu (
+    .a(a_x),
+    .dt(dt),
+    .v_in(v_prev),
+    .v_out(v_next),
+    .dp(dx)
+  );
 
-  wire signed [WP+WP-1:0] mtx = v_x * dt;
-  wire signed [WP+WP-1:0] mty = v_y * dt;
-  wire signed [WP+WP-1:0] mtz = v_z * dt;
-
-  wire signed [WP-1:0] tx = mtx >>> 16;
-  wire signed [WP-1:0] ty = mty >>> 16;
-  wire signed [WP-1:0] tz = mtz >>> 16;
-
-  assign cx = px + tx;
-  assign cy = py + ty;
-  assign cz = pz + tz;
+  // rolling shutter correction
+  assign cx = px + dx;
+  assign cy = py;
+  assign cz = pz;
 
 endmodule

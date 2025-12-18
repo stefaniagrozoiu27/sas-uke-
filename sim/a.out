@@ -1,0 +1,91 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2009.vpi";
+S_0x5ddf3530b6d0 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x5ddf3530b860 .scope module, "top_motion_corrector" "top_motion_corrector" 3 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "px";
+    .port_info 1 /INPUT 32 "py";
+    .port_info 2 /INPUT 32 "pz";
+    .port_info 3 /INPUT 32 "dt";
+    .port_info 4 /INPUT 32 "a_x";
+    .port_info 5 /INPUT 32 "v_prev";
+    .port_info 6 /OUTPUT 32 "v_next";
+    .port_info 7 /OUTPUT 32 "cx";
+    .port_info 8 /OUTPUT 32 "cy";
+    .port_info 9 /OUTPUT 32 "cz";
+P_0x5ddf3530b9f0 .param/l "WP" 0 3 2, +C4<00000000000000000000000000100000>;
+o0x71500c4984f8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+L_0x5ddf35325660 .functor BUFZ 32, o0x71500c4984f8, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+o0x71500c498528 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+L_0x5ddf352faeb0 .functor BUFZ 32, o0x71500c498528, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+o0x71500c4981f8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x5ddf35323f40_0 .net/s "a_x", 31 0, o0x71500c4981f8;  0 drivers
+v0x5ddf35324020_0 .net/s "cx", 31 0, L_0x5ddf35325980;  1 drivers
+v0x5ddf353240e0_0 .net/s "cy", 31 0, L_0x5ddf35325660;  1 drivers
+v0x5ddf353241a0_0 .net/s "cz", 31 0, L_0x5ddf352faeb0;  1 drivers
+o0x71500c498288 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x5ddf35324280_0 .net/s "dt", 31 0, o0x71500c498288;  0 drivers
+v0x5ddf35324340_0 .net/s "dx", 31 0, L_0x5ddf353257c0;  1 drivers
+o0x71500c4984c8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x5ddf35324410_0 .net/s "px", 31 0, o0x71500c4984c8;  0 drivers
+v0x5ddf353244d0_0 .net/s "py", 31 0, o0x71500c4984f8;  0 drivers
+v0x5ddf353245b0_0 .net/s "pz", 31 0, o0x71500c498528;  0 drivers
+v0x5ddf35324690_0 .net/s "v_next", 31 0, L_0x5ddf35325150;  1 drivers
+o0x71500c4982b8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x5ddf35324780_0 .net/s "v_prev", 31 0, o0x71500c4982b8;  0 drivers
+L_0x5ddf35325980 .arith/sum 32, o0x71500c4984c8, L_0x5ddf353257c0;
+S_0x5ddf352cfdf0 .scope module, "imu" "imu_integrator" 3 17, 4 1 0, S_0x5ddf3530b860;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "a";
+    .port_info 1 /INPUT 32 "dt";
+    .port_info 2 /INPUT 32 "v_in";
+    .port_info 3 /OUTPUT 32 "v_out";
+    .port_info 4 /OUTPUT 32 "dp";
+P_0x5ddf352cffd0 .param/l "WP" 0 4 2, +C4<00000000000000000000000000100000>;
+v0x5ddf3530bca0_0 .net/s *"_ivl_0", 63 0, L_0x5ddf353249d0;  1 drivers
+v0x5ddf35322f60_0 .net *"_ivl_10", 47 0, L_0x5ddf35324df0;  1 drivers
+v0x5ddf35323040_0 .net/s *"_ivl_12", 63 0, L_0x5ddf35325010;  1 drivers
+v0x5ddf35323100_0 .net/s *"_ivl_16", 63 0, L_0x5ddf353252e0;  1 drivers
+v0x5ddf353231e0_0 .net/s *"_ivl_18", 63 0, L_0x5ddf35325380;  1 drivers
+v0x5ddf35323310_0 .net/s *"_ivl_2", 63 0, L_0x5ddf35324aa0;  1 drivers
+v0x5ddf353233f0_0 .net *"_ivl_22", 63 0, L_0x5ddf353256d0;  1 drivers
+v0x5ddf353234d0_0 .net *"_ivl_24", 47 0, L_0x5ddf35325570;  1 drivers
+v0x5ddf353235b0_0 .net/s *"_ivl_6", 63 0, L_0x5ddf35324cd0;  1 drivers
+v0x5ddf35323690_0 .net *"_ivl_8", 63 0, L_0x5ddf35324ee0;  1 drivers
+v0x5ddf35323770_0 .net/s "a", 31 0, o0x71500c4981f8;  alias, 0 drivers
+v0x5ddf35323850_0 .net/s "av", 63 0, L_0x5ddf35324b90;  1 drivers
+v0x5ddf35323930_0 .net/s "dp", 31 0, L_0x5ddf353257c0;  alias, 1 drivers
+v0x5ddf35323a10_0 .net/s "dt", 31 0, o0x71500c498288;  alias, 0 drivers
+v0x5ddf35323af0_0 .net/s "v_in", 31 0, o0x71500c4982b8;  alias, 0 drivers
+v0x5ddf35323bd0_0 .net/s "v_out", 31 0, L_0x5ddf35325150;  alias, 1 drivers
+v0x5ddf35323cb0_0 .net/s "vp", 63 0, L_0x5ddf35325480;  1 drivers
+L_0x5ddf353249d0 .extend/s 64, o0x71500c4981f8;
+L_0x5ddf35324aa0 .extend/s 64, o0x71500c498288;
+L_0x5ddf35324b90 .arith/mult 64, L_0x5ddf353249d0, L_0x5ddf35324aa0;
+L_0x5ddf35324cd0 .extend/s 64, o0x71500c4982b8;
+L_0x5ddf35324df0 .part L_0x5ddf35324b90, 16, 48;
+L_0x5ddf35324ee0 .extend/s 64, L_0x5ddf35324df0;
+L_0x5ddf35325010 .arith/sum 64, L_0x5ddf35324cd0, L_0x5ddf35324ee0;
+L_0x5ddf35325150 .part L_0x5ddf35325010, 0, 32;
+L_0x5ddf353252e0 .extend/s 64, o0x71500c4982b8;
+L_0x5ddf35325380 .extend/s 64, o0x71500c498288;
+L_0x5ddf35325480 .arith/mult 64, L_0x5ddf353252e0, L_0x5ddf35325380;
+L_0x5ddf35325570 .part L_0x5ddf35325480, 16, 48;
+L_0x5ddf353256d0 .extend/s 64, L_0x5ddf35325570;
+L_0x5ddf353257c0 .part L_0x5ddf353256d0, 0, 32;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "../rtl/top_motion_corrector.v";
+    "../rtl/imu/imu_integrator.v";
