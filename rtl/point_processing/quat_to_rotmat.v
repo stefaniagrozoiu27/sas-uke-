@@ -9,6 +9,5 @@ module quat_to_rotmat #(
   output logic signed [31:0] r10,r11,r12,
   output logic signed [31:0] r20,r21,r22
 );
-  // Folosești formulele standard, cu multipliers DSP.
-  // Atenție la scaling: produs Q1.30*Q1.30 -> Q2.60, apoi trunchiezi/rotunjești înapoi.
+
 endmodule

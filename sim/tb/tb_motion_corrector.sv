@@ -43,7 +43,6 @@ module tb_motion_corrector;
     count  = 0;
     v_prev = 0;
 
-    // accelerație constantă (exemplu)
     a_x = to_q16_16(1.5);
 
     fin = $fopen("data/input_points.txt", "r");
@@ -63,7 +62,7 @@ module tb_motion_corrector;
       pz = to_q16_16(rz);
       dt = to_q16_16(rdt);
 
-      #1; // timp simbolic de propagare
+      #1;
 
       $fwrite(
         fout,

@@ -9,6 +9,5 @@ module point_corrector #(
   output logic out_valid,
   output logic signed [WP-1:0] cx,cy,cz
 );
-  // p' = p - t
-  // c = R^T * p'
+
 endmodule
